@@ -77,10 +77,10 @@ public class App {
         //тестовый набор Event
         DateFormat dfEvent = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         app.events.create(new Event(1,"Терминатор 5", dfEvent.parse("25.10.2015 9:00"), 50, app.auditoriums.get(1)));
-        app.events.create(new Event(2,"Терминатор 5", dfEvent.parse("25.10.2015 12:00"), 50, app.auditoriums.get(1)));
+        app.events.create(new Event(2,"Терминатор 5", dfEvent.parse("25.10.2015 13:00"), 50, app.auditoriums.get(1)));
         app.events.create(new Event(3,"Терминатор 5", dfEvent.parse("25.10.2015 17:00"), 50, app.auditoriums.get(1)));
         app.events.create(new Event(4,"Смурфики", dfEvent.parse("25.10.2015 10:00"), 30, app.auditoriums.get(2)));
-        app.events.create(new Event(5,"Смурфики", dfEvent.parse("25.10.2015 17:00"), 30, app.auditoriums.get(3)));     
+        app.events.create(new Event(5,"Смурфики", dfEvent.parse("25.10.2015 16:00"), 30, app.auditoriums.get(3)));     
     }
     
     public void generateTestDatabaseTickets(int countTickets)
@@ -118,20 +118,20 @@ public class App {
          app.generateTestDatabaseTickets(100);
          
          //Выводим все сгенерированные билеты
-         System.out.println(" ==== Все билеты ==== ");
+         System.out.println(" ==== Купленные билеты ==== ");
          int num = 0; 
          for(Ticket t : app.bookingService.getTickets())
          {
-             System.out.println(++num + " >> "+t.getEvent()+" - > "+((t.getUser()!=null) ? t.getUser().getName(): null) +" - "+t.getSeat()+" = "+t.getPrice());
+             System.out.println(++num + " >> "+t.getEvent()+" - Зарег.клиент -> "+((t.getUser()!=null) ? t.getUser().getName(): null) +" - Место->"+t.getSeat()+" = Цена->"+t.getPrice());
          }
           
          //Выводим историю по User-у 
          num = 0;
-         List<Ticket> userTickets = app.users.getBookedTickets(/*app.users.get(1)*/null, app.bookingService.getTickets());
+         List<Ticket> userTickets = app.users.getBookedTickets(app.users.get(1)/*null*/, app.bookingService.getTickets()); //null - клиент не зарегистрирован 
          System.out.println(" ==== История юзера ==== ");
          for(Ticket t : userTickets)
          {
-             System.out.println(++num + " >> "+t.getEvent()+" - > "+((t.getUser()!=null) ? t.getUser().getName(): null)+" - "+t.getSeat()+" = "+t.getPrice());
+             System.out.println(++num + " >> "+t.getEvent()+" - >"+((t.getUser()!=null) ? t.getUser().getName(): null)+" - "+t.getSeat()+" = "+t.getPrice());
          }
          
          

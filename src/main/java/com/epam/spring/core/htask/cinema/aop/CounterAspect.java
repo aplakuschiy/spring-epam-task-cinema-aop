@@ -54,8 +54,7 @@ public class CounterAspect {
             counter = new HashMap<>();
         }
         //считаем купленные билеты
-        //String key = "куплено билетов";//jp.getSignature().getName();
-            addCounter("куплено билетов");
+        addCounter("куплено билетов");
 
         Object[] args = jp.getArgs();
 
@@ -68,13 +67,9 @@ public class CounterAspect {
             }
             // счетчик обращений к системе определения индивидуальной цены
             if(args[1] != null) {
-             addCounter("индивидуальная цена");
+             addCounter("обращений к системе индивидуального ценообразования");
             }        
         }
-        
-        //считаем запросы по скидкам для конкретного пользователя (только для user!=null)
-        
-        
     }
 
     private void addCounter(String key) {
